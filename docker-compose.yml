@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  api:
+    container_name: api-container
+    build: ./api
+    command: uwsgi --ini uwsgi.ini
+    volumes:
+      - api:/usr/src/app
+    #ports:
+    #  - 8000:8000
+
+  nginx:
+    container_name: nginx_container
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - api:/usr/src/app
+
+volumes:
+  api:
